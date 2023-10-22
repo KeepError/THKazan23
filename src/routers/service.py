@@ -80,4 +80,6 @@ def add_raw_log(
         )
     )
 
+    update_metrics()
+
     return raw_log

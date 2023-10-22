@@ -27,6 +27,7 @@ from src.schemas.routes.dashboard import (
 )
 from src.schemas.routes.service import AddRawLog
 from src.services.mail import send_mail
+from src.utils.metrics import update_metrics
 
 dashboard_router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
@@ -138,6 +139,9 @@ def set_error_status(
     error = error_repo.set_status(error_uid=error_uid, status=status)
     if not error:
         raise HTTPException(status_code=404, detail="Error not found")
+
+    update_metrics()
+    
     return error
 
 
